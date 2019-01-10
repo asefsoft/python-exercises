@@ -11,7 +11,7 @@ def cls():
     os.system('cls' if os.name=='nt' else 'clear')
 
 
-# get a random position on game's board for user, dragon and door with no overlap
+# get a random position on game's board for player, dragon and door with no overlap
 def get_rand_position(occupied_position=()):
     position = []
 
@@ -26,7 +26,7 @@ def get_rand_position(occupied_position=()):
     return position
 
 
-# show game board to user
+# show game board to player
 def show_game_board():
     for row in range(dimension * 2 + 1):
         for col in range(dimension * 2 + 1):
@@ -36,7 +36,7 @@ def show_game_board():
                 if col % 2 == 0:
                     print("|", end='')
                 else:
-                    if [(row-1)/2, (col-1)/2] == user_position:
+                    if [(row-1)/2, (col-1)/2] == player_position:
                         print(" X ", end='')
                     else:
                         print("   ", end='')
@@ -46,13 +46,13 @@ def show_game_board():
 # get valid moves base on player position on game board
 def get_valid_moves():
     valid_moves=[]
-    if user_position[1] >= 1:
+    if player_position[1] >= 1:
         valid_moves.append("Left")
-    if user_position[1] <= dimension - 2:
+    if player_position[1] <= dimension - 2:
         valid_moves.append("Right")
-    if user_position[0] >= 1:
+    if player_position[0] >= 1:
         valid_moves.append("Up")
-    if user_position[0] <= dimension - 2:
+    if player_position[0] <= dimension - 2:
         valid_moves.append("Down")
 
     return valid_moves
@@ -64,13 +64,13 @@ def do_move(move_command):
     # is valid move?
     if move_command in get_valid_moves():
         if move_command == "Left":
-            user_position[1] -= 1
+            player_position[1] -= 1
         if move_command == "Right":
-            user_position[1] += 1
+            player_position[1] += 1
         if move_command == "Up":
-            user_position[0] -= 1
+            player_position[0] -= 1
         if move_command == "Down":
-            user_position[0] += 1
+            player_position[0] += 1
         return True
     else:
         return False
@@ -78,10 +78,10 @@ def do_move(move_command):
 
 # is player safe or hunted by dragon
 def get_player_state():
-    if user_position == dragon_position:
+    if player_position == dragon_position:
         print("\nooh Sorry!! you hunted by dragon!")
         return False
-    elif user_position == door_position:
+    elif player_position == door_position:
         print("\nCongrats! you found escape door and you are safe now!")
         return False
 
@@ -93,22 +93,22 @@ while True:
 
     cls()
 
-    # get board size from user
+    # get board size from player
     while dimension < 3 or dimension > 15:
         dimension = input("Please enter dimension of game board [3-15]")
         dimension = int(dimension) if dimension.isnumeric() else -1
 
-    # get random position for door, dragon and user
+    # get random position for door, dragon and player
     door_position   = get_rand_position()
     dragon_position = get_rand_position(door_position)
-    user_position   = get_rand_position([door_position, dragon_position])
+    player_position   = get_rand_position([door_position, dragon_position])
 
     is_player_safe = True
 
     # showing game board and start playing
     while is_player_safe:
         cls()
-        # print(door_position, dragon_position, user_position)
+        # print(door_position, dragon_position, player_position)
         print("Valid moves are: {}".format(get_valid_moves()))
 
         show_game_board()
