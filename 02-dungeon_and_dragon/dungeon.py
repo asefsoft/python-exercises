@@ -8,7 +8,7 @@ dimension = -1
 
 
 def cls():
-    os.system('cls' if os.name=='nt' else 'clear')
+    os.system('cls' if os.name == 'nt' else 'clear')
 
 
 # get a random position on game's board for player, dragon and door with no overlap
@@ -124,4 +124,5 @@ while True:
     if command.lower() == "exit":
         exit(0)
     else:
+        # reset dimension
         dimension = -1
