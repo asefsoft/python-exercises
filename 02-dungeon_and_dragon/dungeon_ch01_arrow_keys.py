@@ -52,6 +52,8 @@ def show_game_board():
                         print("   ", end='')
         print()
 
+    print("\nPress 'Escape' to exit the game")
+
 
 # get valid moves base on player position on game board
 def get_valid_moves():
@@ -128,7 +130,7 @@ dimension = -1
 
 # get board size from player
 while dimension < 3 or dimension > 15:
-    dimension = input("Please enter dimension of game board [3-15]")
+    dimension = input("Please enter dimension of game board [3-15]: ")
     dimension = int(dimension) if dimension.isnumeric() else -1
 
 # get random position for door, dragon and player
